@@ -1,0 +1,62 @@
+/* * {
+    padding: 0px;
+    margin: 0px;
+} */
+
+#result {
+    color: red;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.gameGrid {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    flex-wrap: wrap;
+}
+
+.gameSquare {
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+}
+
+.gameSquare:disabled {
+    color: black;
+    background-color: buttonface;
+}
+
+.gameSquare:hover {
+    background-color: grey;
+}
+
+
+
+
+
+
+
+
+.line1 {
+    border: none;
+    border-bottom: solid black;
+}
+
+.line2 {
+    border: none;
+    border-bottom: solid black;
+}
+
+.line3 {
+    border: none;
+}
+
+.column1 {
+    border-right: solid black;
+}
+
+.column2 {
+    border-right: solid black;
+}

@@ -1,5 +1,3 @@
-
-
 const gameboardObject = (function() {
     const gameboard = ["Dummy element because counting from one is easier than zero for imagining a 3 x 3 board and associating numbers with each tile and now I'm just rambling", 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const getGameBoard = () => {
@@ -8,9 +6,11 @@ const gameboardObject = (function() {
 
     let filledCount = 0;
 
-    let startingPlayer;
     const setStartingPlayer = (input) => {
-        startingPlayer = input;
+        gameActive = true;
+        currentPlayer = input;
+        enableGameSquares();
+        disableStart();
     };
 
     let result = undefined;
@@ -18,33 +18,26 @@ const gameboardObject = (function() {
         return result;
     };
 
-    let gameActive = true;
+    let gameActive = false;
     const getActive = () => {
         return gameActive;
     };
 
-    let previousPlayer;
-
-    const playerCheck = (item, position) => {
-        currentPlayer = item;
-        if (filledCount === 0){
-            placeTile(item, position);
-        } else if (gameActive === true && gameboard[position] === 0 && currentPlayer !== previousPlayer){
-            placeTile(item, position);
-        }
-    };
+    let currentPlayer;
 
     const placeTile = (item, position) => {
-        previousPlayer = item;
+        currentPlayer = item;
         gameboard.splice(position, 1, item);
         filledCount ++;
         if (winningNumberCheck() === true){
             result = 'win';
             gameActive = false;
+            disableGameSquares();
         }
         if (filledCount === 9 && result !== 'win'){
             result = 'draw';
             gameActive = false;
+            disableGameSquares();
         };
     };
 
@@ -59,29 +52,81 @@ const gameboardObject = (function() {
     };
 
     const resetGame = function (){
-        gameboard.fill("", 1);
+        gameboard.fill(0, 1);
         filledCount = 0;
         gameActive = true;
         result = undefined;
     };
 
-    return {placeTile, winningNumberCheck, getActive, getResult, resetGame, playerCheck, getGameBoard, setStartingPlayer, gameActive};
+    ///// DOM FUNCTIONS BELOW
+
+    const body = document.body;
+    const resetButton = body.querySelector('.resetButton');
+    const startButton = body.querySelectorAll('.startButton');
+    const gameSquares = body.querySelectorAll('.gameSquare');
+    gameSquares.forEach(element => {
+        element.disabled = true;
+    });
+
+    startButton.forEach(element => {
+        element.addEventListener('click', () => {
+            setStartingPlayer(element.innerText);
+        });
+    });
+
+    resetButton.addEventListener('click', () => {
+        resetGame();
+        enableStart();
+        gameSquares.forEach(element => {
+            element.disabled = false;
+            element.innerText = "";
+        });
+    });
+
+    gameSquares.forEach(element => {
+        element.addEventListener('click', (event) => {
+            const targetId = event.target.id * 1;
+            if (filledCount !== 0){
+                currentPlayer = (currentPlayer === 'x') ? 'o' : 'x';
+            }
+            placeTile(currentPlayer, targetId);
+            element.innerText = currentPlayer;
+            event.target.disabled = true;
+        });
+    });
+
+    const disableGameSquares = () => {
+        gameSquares.forEach(element => {
+            element.disabled = true;
+        });
+    };
+
+    const enableGameSquares = () => {
+        gameSquares.forEach(element => {
+            element.disabled = false;
+        });
+    };
+
+    const disableStart = () => {
+        startButton.forEach(element => {
+            element.disabled = true;
+        });
+    }
+
+    const enableStart = () => {
+        startButton.forEach(element => {
+            element.disabled = false;
+        });
+    }
+
+    return {placeTile, winningNumberCheck, getActive, getResult, resetGame, getGameBoard, setStartingPlayer};
 })();
 
-gameboardObject.playerCheck('o', 1);
-gameboardObject.playerCheck('x', 2);
-gameboardObject.playerCheck('x', 3);
-gameboardObject.playerCheck('o', 4);
-gameboardObject.playerCheck('x', 5);
-gameboardObject.playerCheck('o', 6);
-gameboardObject.playerCheck('x', 7);
-gameboardObject.playerCheck('o', 8);
-gameboardObject.playerCheck('x', 9);
-gameboardObject.playerCheck('o', 3);
-gameboardObject.resetGame();
 
-console.log(gameboardObject.getResult());
-console.log(gameboardObject.getGameBoard());
+
+
+
+
 
 
 
