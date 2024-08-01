@@ -53,6 +53,7 @@ body {
     height: 100px;
     width: 100px;
     box-sizing: border-box;
+    font-size: 30px;
 }
 
 .gameSquare:disabled {
