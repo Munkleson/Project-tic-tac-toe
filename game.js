@@ -1,8 +1,5 @@
 const gameboardObject = (function() {
     const gameboard = ["Dummy element because counting from one is easier than zero for imagining a 3 x 3 board and associating numbers with each tile and now I'm just rambling", 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const getGameBoard = () => {
-        return gameboard;
-    };
 
     let filledCount = 0;
 
@@ -14,14 +11,8 @@ const gameboardObject = (function() {
     };
 
     let result = undefined;
-    const getResult = () => {
-        return result;
-    };
 
     let gameActive = false;
-    const getActive = () => {
-        return gameActive;
-    };
 
     let currentPlayer;
 
@@ -30,14 +21,16 @@ const gameboardObject = (function() {
         gameboard.splice(position, 1, item);
         filledCount ++;
         if (winningNumberCheck() === true){
-            result = 'win';
+            result = `Player ${currentPlayer.toUpperCase()} wins!! 🎉`;
             gameActive = false;
             disableGameSquares();
+            resultText.innerText = result;
         }
         if (filledCount === 9 && result !== 'win'){
-            result = 'draw';
+            result = "It's a draw 😱";
             gameActive = false;
             disableGameSquares();
+            resultText.innerText = result;
         };
     };
 
@@ -56,6 +49,7 @@ const gameboardObject = (function() {
         filledCount = 0;
         gameActive = true;
         result = undefined;
+        resultText.innerText = "";
     };
 
     ///// DOM FUNCTIONS BELOW
@@ -64,6 +58,8 @@ const gameboardObject = (function() {
     const resetButton = body.querySelector('.resetButton');
     const startButton = body.querySelectorAll('.startButton');
     const gameSquares = body.querySelectorAll('.gameSquare');
+    const resultText = body.querySelector('#result');
+
     gameSquares.forEach(element => {
         element.disabled = true;
     });
@@ -78,7 +74,6 @@ const gameboardObject = (function() {
         resetGame();
         enableStart();
         gameSquares.forEach(element => {
-            element.disabled = false;
             element.innerText = "";
         });
     });
@@ -118,8 +113,6 @@ const gameboardObject = (function() {
             element.disabled = false;
         });
     }
-
-    return {placeTile, winningNumberCheck, getActive, getResult, resetGame, getGameBoard, setStartingPlayer};
 })();
 
 

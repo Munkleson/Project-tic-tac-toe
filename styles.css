@@ -3,11 +3,31 @@
     margin: 0px;
 } */
 
+body {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.containerDiv {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: 20%; */
+}
+
+.startButton {
+    width: 50px;
+    height: 50px;
+}
+
 #result {
     color: red;
     font-weight: bold;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
+    height: 40px;
 }
 
 .gameGrid {
