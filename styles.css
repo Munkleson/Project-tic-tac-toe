@@ -9,12 +9,17 @@ body {
     height: 100vh;
 }
 
+#title {
+    font-weight: bold;
+    font-size: 40px;
+}
+
 .containerDiv {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
     align-items: center;
-    /* margin-top: 20%; */
+    margin-top: 50px;
 }
 
 .startButton {
@@ -28,6 +33,13 @@ body {
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
     height: 40px;
+}
+
+.winningNumber {
+    color: red !important;
+    font-size: 60px !important;
+    transition: 0.3s !important;
+    font-weight: bold !important;
 }
 
 .gameGrid {
@@ -52,13 +64,6 @@ body {
     background-color: grey;
 }
 
-
-
-
-
-
-
-
 .line1 {
     border: none;
     border-bottom: solid black;
@@ -79,4 +84,28 @@ body {
 
 .column2 {
     border-right: solid black;
+}
+
+.githubLink {
+    margin-top: 100px;
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(218, 212, 212);
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.githubLink:hover {
+    background-color: grey;
+    transition: 0.3s;
+}
+
+.githubLink:active {
+    transform: translateY(5px);
+    transition: 0.1s;
 }

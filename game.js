@@ -17,7 +17,6 @@ const gameboardObject = (function() {
     let currentPlayer;
 
     const placeTile = (item, position) => {
-        currentPlayer = item;
         gameboard.splice(position, 1, item);
         filledCount ++;
         if (winningNumberCheck() === true){
@@ -38,6 +37,12 @@ const gameboardObject = (function() {
     const winningNumberCheck = function(){
         for (let index = 0; index < winningCombinations.length; index++) {
             if (gameboard[winningCombinations[index][0]] !== 0 && gameboard[winningCombinations[index][0]] === gameboard[winningCombinations[index][1]] && gameboard[winningCombinations[index][0]] === gameboard[winningCombinations[index][2]]){
+                const winningArray = [winningCombinations[index][0].toString(), winningCombinations[index][1].toString(), winningCombinations[index][2].toString()];
+                gameSquares.forEach(element => {
+                    if (winningArray.includes(element.id)){
+                        element.classList.add('winningNumber');
+                    }
+                });
                 return true;
             }
         };
@@ -50,6 +55,9 @@ const gameboardObject = (function() {
         gameActive = true;
         result = undefined;
         resultText.innerText = "";
+        gameSquares.forEach(element => {
+            element.classList.remove('winningNumber');
+        })
     };
 
     ///// DOM FUNCTIONS BELOW
@@ -85,7 +93,7 @@ const gameboardObject = (function() {
                 currentPlayer = (currentPlayer === 'x') ? 'o' : 'x';
             }
             placeTile(currentPlayer, targetId);
-            element.innerText = currentPlayer;
+            element.innerHTML = currentPlayer;
             event.target.disabled = true;
         });
     });
