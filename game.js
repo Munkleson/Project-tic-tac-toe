@@ -55,6 +55,7 @@ const gameboardObject = (function() {
         gameboard.fill(0, 1);
         filledCount = 0;
         gameActive = false;
+        resultValue = undefined;
         resultText.innerText = "";
         gameSquares.forEach(element => {
             element.classList.remove('winningNumber');
