@@ -10,7 +10,8 @@ const gameboardObject = (function() {
         disableStart();
     };
 
-    let result = undefined;
+    let result;
+    let resultValue = undefined;
 
     let gameActive = false;
 
@@ -20,12 +21,13 @@ const gameboardObject = (function() {
         gameboard.splice(position, 1, item);
         filledCount ++;
         if (winningNumberCheck() === true){
+            resultValue = 'win';
             result = `Player ${currentPlayer.toUpperCase()} wins!! 🎉`;
             gameActive = false;
             disableGameSquares();
             resultText.innerText = result;
         }
-        if (filledCount === 9 && result !== 'win'){
+        if (filledCount === 9 && resultValue !== 'win'){
             result = "It's a draw 😱";
             gameActive = false;
             disableGameSquares();
@@ -53,7 +55,6 @@ const gameboardObject = (function() {
         gameboard.fill(0, 1);
         filledCount = 0;
         gameActive = true;
-        result = undefined;
         resultText.innerText = "";
         gameSquares.forEach(element => {
             element.classList.remove('winningNumber');
