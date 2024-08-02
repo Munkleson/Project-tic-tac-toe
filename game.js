@@ -54,7 +54,7 @@ const gameboardObject = (function() {
     const resetGame = function (){
         gameboard.fill(0, 1);
         filledCount = 0;
-        gameActive = true;
+        gameActive = false;
         resultText.innerText = "";
         gameSquares.forEach(element => {
             element.classList.remove('winningNumber');
@@ -89,13 +89,15 @@ const gameboardObject = (function() {
 
     gameSquares.forEach(element => {
         element.addEventListener('click', (event) => {
-            const targetId = event.target.id * 1;
-            if (filledCount !== 0){
-                currentPlayer = (currentPlayer === 'x') ? 'o' : 'x';
+            if (gameActive) {
+                const targetId = event.target.id * 1;
+                if (filledCount !== 0){
+                    currentPlayer = (currentPlayer === 'x') ? 'o' : 'x';
+                }
+                placeTile(currentPlayer, targetId);
+                element.innerHTML = currentPlayer;
+                event.target.disabled = true;
             }
-            placeTile(currentPlayer, targetId);
-            element.innerHTML = currentPlayer;
-            event.target.disabled = true;
         });
     });
 
